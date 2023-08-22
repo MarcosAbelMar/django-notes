@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="my-5">Mis notas</h1>
+
+{% if notes|length == 0 and not request.GET.buscar %}
+<div class="mx-auto d-flex justify-content-center align-items-center">
+    <p> Hola {{ user.username | capfirst }}, aun no tienes notas registradas. Empieza a crear una presionando "Nueva
+        nota".</p>
+</div>
+{% elif notes|length == 0 and request.GET.buscar %}
+<form class="input-group mb-3">
+    <input name="buscar" type="text" class="form-control" placeholder="Buscar nota" aria-describedby="button-addon2">
+    <button class="btn btn-secondary" type="submit" id="button-addon2">Buscar</button>
+</form>
+<div class="row row-cols-1 row-cols-md-3 g-2 mb-3">
+    <div class="mx-auto d-flex justify-content-center align-items-center">
+        <p> No se encontraron notas que coincidan con tu busqueda</p>
+    </div>
+    {% else %}
+    <form class="input-group mb-3">
+        <input name="buscar" type="text" class="form-control" placeholder="Buscar nota"
+            aria-describedby="button-addon2">
+        <button class="btn btn-secondary" type="submit" id="button-addon2">Buscar</button>
+    </form>
+    <div class="row row-cols-1 row-cols-md-3 g-2 mb-3">
+        {% for nota in notes %}
+        <div class="col">
+            <a href="{% url 'detalles_notas' pk=nota.id %}" class="text-decoration-none text-dark">
+                <div class="p-3 border">
+                    <h3>{{ nota.titulo }}</h3>
+                    <p style="font-size: 15px; opacity: 0.6;">Fecha de creacion: {{ nota.creado|date:"d/m/Y" }}</p>
+                    {{ nota.texto|truncatechars:20 }}
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+{% endblock %}
