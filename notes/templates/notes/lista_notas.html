@@ -28,7 +28,7 @@
         <div class="col">
             <a href="{% url 'detalles_notas' pk=nota.id %}" class="text-decoration-none text-dark">
                 <div class="p-3 border">
-                    <h3>{{ nota.titulo }}</h3>
+                    <h3>{{ nota.titulo|truncatechars:15}}</h3>
                     <p style="font-size: 15px; opacity: 0.6;">Fecha de creacion: {{ nota.creado|date:"d/m/Y" }}</p>
                     {{ nota.texto|truncatechars:20 }}
                 </div>
