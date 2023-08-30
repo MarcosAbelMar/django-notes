@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form method='post'>{% csrf_token %}
+    <p>¿Estas seguro de que quieres eliminar la nota "{{note.titulo}}"?</p>
+    <p>Esta accion es irreversible</p>
+
+    <input type="submit" class="btn btn-danger" value="Confirmar"/>
+    <a href="{%  url 'detalles_notas' pk=note.id %} " class="btn btn-secondary "> Cancelar </a>
+</form>
+
+
+
+{% endblock %}
